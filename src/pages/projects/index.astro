@@ -1,0 +1,250 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const projects = [
+  {
+    slug: 'ai-decision-partner',
+    num: '001',
+    title: 'AI 의사결정 파트너',
+    subtitle: 'AI Decision Partner',
+    status: 'active',
+    statusLabel: '빌딩 중',
+    started: '2025.03',
+    tags: ['SaaS', 'AI', 'B2B'],
+    summary:
+      '솔로프리너와 소상공인이 중요한 결정을 내릴 때 데이터 기반 인사이트를 제공하는 AI 도구. 시그널 4개, 기각 5번, 그리고 숨겨진 진실.',
+    stats: [
+      { label: '발굴 시그널', value: '4' },
+      { label: '기각 아이템', value: '5' },
+      { label: '빌드 주차', value: '3wk' },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="프로젝트"
+  description="Zero to One의 모든 프로젝트. 과정도, 실패도, 수익도 공개한다."
+>
+
+  <div class="page-header">
+    <div class="container">
+      <span class="label">프로젝트 / Projects</span>
+      <h1>우리가 만들고 있는 것들.</h1>
+      <p class="page-desc">
+        진행 중, 기각된, 완료된 모든 프로젝트를 공개한다.<br />
+        빌딩 과정에서 배운 것도 함께.
+      </p>
+    </div>
+  </div>
+
+  <div class="container projects-body">
+    <div class="projects-list">
+      {projects.map((p) => (
+        <a href={`/projects/${p.slug}`} class="pcard">
+          <div class="pcard-head">
+            <div class="pcard-id-row">
+              <span class="label pcard-num">#{p.num}</span>
+              <span class:list={['pcard-status', p.status === 'active' && 'pcard-status--active']}>
+                {p.statusLabel}
+              </span>
+              <span class="pcard-since label">{p.started} ~</span>
+            </div>
+
+            <h2 class="pcard-title">{p.title}</h2>
+            <p class="pcard-subtitle">{p.subtitle}</p>
+          </div>
+
+          <p class="pcard-summary">{p.summary}</p>
+
+          <div class="pcard-tags">
+            {p.tags.map((t) => <span class="ptag">{t}</span>)}
+          </div>
+
+          <div class="pcard-stats">
+            {p.stats.map((s) => (
+              <div class="pstat">
+                <span class="label">{s.label}</span>
+                <span class="pstat-val">{s.value}</span>
+              </div>
+            ))}
+          </div>
+
+          <div class="pcard-cta">
+            여정 읽기 <span class="arrow">→</span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <!-- empty state for future -->
+    <div class="coming-soon">
+      <span class="label">다음 프로젝트</span>
+      <p>시그널 발굴 중. 기각되면 여기에도 올라온다.</p>
+    </div>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: 7rem 0 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-header .label {
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  .page-header h1 {
+    margin-bottom: 1rem;
+  }
+
+  .page-desc {
+    color: var(--ink-muted);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+
+  .projects-body {
+    padding: 5rem 0;
+  }
+
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--border);
+    margin-bottom: 4rem;
+  }
+
+  /* ─── Project Card ─────────────────────────────────── */
+  .pcard {
+    display: block;
+    padding: 3rem 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    transition: padding-left 0.2s;
+  }
+
+  .pcard:hover {
+    padding-left: 1.5rem;
+  }
+
+  .pcard-head { margin-bottom: 1.25rem; }
+
+  .pcard-id-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .pcard-status {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.55rem;
+    background: rgba(13,13,13,0.07);
+    color: var(--ink-muted);
+  }
+
+  .pcard-status--active {
+    background: rgba(255,59,0,0.1);
+    color: var(--accent);
+  }
+
+  .pcard-since { color: var(--ink-faint); }
+
+  .pcard-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    margin-bottom: 0.25rem;
+  }
+
+  .pcard:hover .pcard-title { color: var(--accent); }
+
+  .pcard-subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--ink-faint);
+    margin: 0;
+  }
+
+  .pcard-summary {
+    font-size: 1rem;
+    color: var(--ink-muted);
+    max-width: 60ch;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .pcard-tags {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .ptag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    border: 1px solid var(--border);
+    padding: 0.15rem 0.55rem;
+    color: var(--ink-muted);
+  }
+
+  .pcard-stats {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .pstat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .pstat-val {
+    font-family: var(--font-mono);
+    font-size: 1.3rem;
+    font-weight: 400;
+  }
+
+  .pcard-cta {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    color: var(--ink-muted);
+    transition: color 0.15s;
+  }
+
+  .pcard:hover .pcard-cta { color: var(--ink); }
+
+  .arrow {
+    display: inline-block;
+    transition: transform 0.15s;
+  }
+
+  .pcard:hover .arrow { transform: translateX(4px); }
+
+  /* ─── Coming soon ──────────────────────────────────── */
+  .coming-soon {
+    padding: 3rem;
+    border: 1px dashed var(--border);
+    text-align: center;
+  }
+
+  .coming-soon .label { display: block; margin-bottom: 0.75rem; }
+
+  .coming-soon p {
+    font-size: 0.95rem;
+    color: var(--ink-faint);
+    margin: 0;
+  }
+</style>

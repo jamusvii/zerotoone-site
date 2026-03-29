@@ -1,0 +1,459 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const journey = [
+  {
+    type: 'signal',
+    typeLabel: '시그널',
+    date: '2025.03.08',
+    title: '소상공인 72%가 감으로 재고를 결정한다',
+    body: '통계청 + 소상공인 인터뷰 데이터 분석. 의사결정 도구 시장이 텅 비어있다는 첫 번째 확인.',
+  },
+  {
+    type: 'signal',
+    typeLabel: '시그널',
+    date: '2025.03.10',
+    title: '매출 하락의 40%는 타이밍 실패',
+    body: '재고 과잉 또는 재고 부족. 판단의 문제가 아니라 정보 부재의 문제다.',
+  },
+  {
+    type: 'signal',
+    typeLabel: '시그널',
+    date: '2025.03.12',
+    title: '기존 ERP는 소상공인에게 너무 복잡하다',
+    body: '도입률 12%. 배우는 데 3개월. 이건 기회가 아니라 경고다.',
+  },
+  {
+    type: 'signal',
+    typeLabel: '시그널',
+    date: '2025.03.14',
+    title: 'ChatGPT를 활용하는 소상공인 급증',
+    body: '하지만 결과물이 들쭉날쭉. 구조화된 AI 의사결정 도구에 대한 잠재 수요 확인.',
+  },
+  {
+    type: 'kill',
+    typeLabel: '기각',
+    date: '2025.03.15',
+    title: '재고 예측 AI — 기각',
+    body: '선발주자 10개 이상, B2B 영업 주기 6개월 이상, 데이터 의존성 높음. 우리에게 맞지 않는 게임.',
+  },
+  {
+    type: 'kill',
+    typeLabel: '기각',
+    date: '2025.03.17',
+    title: '가격 최적화 툴 — 기각',
+    body: '경쟁사 가격 데이터 수집 비용 문제. 플랫폼마다 스크래핑 제한. 기술적 장벽 과도.',
+  },
+  {
+    type: 'kill',
+    typeLabel: '기각',
+    date: '2025.03.19',
+    title: '마케팅 카피 자동화 — 기각',
+    body: '레드오션. ChatGPT wrapper 포지션. 차별화 근거 없음.',
+  },
+  {
+    type: 'kill',
+    typeLabel: '기각',
+    date: '2025.03.21',
+    title: '고객 분석 대시보드 — 기각',
+    body: '플랫폼 API 의존성 과도. 쿠팡/네이버가 막으면 서비스 종료. 지속가능성 없음.',
+  },
+  {
+    type: 'kill',
+    typeLabel: '기각',
+    date: '2025.03.22',
+    title: '스마트 재고관리 SaaS — 기각',
+    body: '4번째 기각과 같은 이유. 우리는 데이터 수집 사업을 하려는 게 아니다.',
+  },
+  {
+    type: 'pivot',
+    typeLabel: '전환점',
+    date: '2025.03.25',
+    title: '숨겨진 진실: 문제는 도구가 아니라 의사결정 프레임',
+    body: '5개 아이디어를 다 버리고 나서야 보였다. 소상공인은 더 많은 데이터가 필요한 게 아니다. "어떤 것을 고려해서 어떻게 결정할지"를 모른다. 의사결정 프레임 자체가 없다.',
+  },
+  {
+    type: 'build',
+    typeLabel: '빌딩',
+    date: '2025.03.28',
+    title: 'AI 의사결정 파트너 — 개발 시작',
+    body: '질문 구조화 → AI 분석 → 의사결정 트리 생성 → 결과 기록. 단순한 챗봇이 아니라 의사결정 코치.',
+  },
+];
+---
+
+<BaseLayout
+  title="AI 의사결정 파트너 — 프로젝트 #001"
+  description="솔로프리너와 소상공인을 위한 AI 의사결정 파트너. 시그널 4개, 기각 5번, 그리고 진짜 문제의 발견."
+>
+
+  <!-- Project Header -->
+  <div class="project-page-header">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="/projects">프로젝트</a>
+        <span>/</span>
+        <span>#001</span>
+      </div>
+
+      <div class="project-hero">
+        <div class="project-hero-left">
+          <div class="project-status-row">
+            <span class="pstatus pstatus--active">빌딩 중</span>
+            <span class="label">2025.03 ~</span>
+          </div>
+          <h1>AI 의사결정<br />파트너</h1>
+          <p class="project-hero-sub">AI Decision Partner</p>
+
+          <p class="project-hero-desc">
+            솔로프리너와 소상공인이 중요한 결정을 내릴 때 AI가 의사결정 프레임을 제공한다.
+            더 많은 데이터가 아니라, 더 나은 질문으로.
+          </p>
+        </div>
+
+        <div class="project-hero-stats">
+          <div class="hero-stat">
+            <span class="label">발굴 시그널</span>
+            <span class="hero-stat-val">4</span>
+          </div>
+          <div class="hero-stat">
+            <span class="label">기각된 아이디어</span>
+            <span class="hero-stat-val">5</span>
+          </div>
+          <div class="hero-stat">
+            <span class="label">현재 단계</span>
+            <span class="hero-stat-val accent">대시보드<br />개발</span>
+          </div>
+          <div class="hero-stat">
+            <span class="label">현재 수익</span>
+            <span class="hero-stat-val">₩0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Journey -->
+  <div class="container journey-section">
+    <div class="journey-intro">
+      <span class="label section-label">여정 / Journey</span>
+      <p class="journey-lead">
+        이 프로젝트가 어떻게 시작되었는지, 무엇을 버렸는지, 무엇을 발견했는지.
+        좋은 것만 골라 보여주지 않는다.
+      </p>
+    </div>
+
+    <div class="timeline">
+      {journey.map((item, i) => (
+        <div class:list={['timeline-item', `timeline-item--${item.type}`]}>
+          <div class="timeline-marker">
+            <span class="timeline-date label">{item.date}</span>
+            <span class:list={['timeline-type', `ttype--${item.type}`]}>
+              {item.typeLabel}
+            </span>
+          </div>
+          <div class="timeline-content">
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </div>
+        </div>
+      ))}
+
+      <!-- Current -->
+      <div class="timeline-item timeline-item--current">
+        <div class="timeline-marker">
+          <span class="timeline-date label">현재</span>
+          <span class="timeline-type ttype--build">
+            <span class="dot-pulse"></span>
+            진행 중
+          </span>
+        </div>
+        <div class="timeline-content">
+          <h3>의사결정 대시보드 개발 중</h3>
+          <p>
+            프로토타입 완성 목표: 2025년 4월.
+            베타 테스터 모집 중. 관심 있으면 뉴스레터 구독.
+          </p>
+          <a href="/#newsletter" class="btn-sm">베타 참여 신청 →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="project-cta-section">
+    <div class="container">
+      <div class="project-cta-inner">
+        <div>
+          <h2>이 프로젝트를 따라오고 싶다면</h2>
+          <p>빌드 로그를 구독하면 업데이트를 가장 먼저 받는다.</p>
+        </div>
+        <a href="/#newsletter" class="btn-primary">뉴스레터 구독</a>
+      </div>
+    </div>
+  </div>
+
+</BaseLayout>
+
+<style>
+  /* ─── Header ──────────────────────────────────────── */
+  .project-page-header {
+    padding: 5rem 0 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    margin-bottom: 3rem;
+  }
+
+  .breadcrumb a {
+    color: var(--ink-muted);
+    transition: color 0.15s;
+  }
+
+  .breadcrumb a:hover { color: var(--ink); }
+
+  .project-hero {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .project-status-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .pstatus {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+  }
+
+  .pstatus--active {
+    background: rgba(255,59,0,0.1);
+    color: var(--accent);
+  }
+
+  .project-page-header h1 {
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    margin-bottom: 0.4rem;
+  }
+
+  .project-hero-sub {
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+    margin: 0 0 2rem;
+  }
+
+  .project-hero-desc {
+    font-size: 1.05rem;
+    color: var(--ink-muted);
+    max-width: 48ch;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .project-hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem 3rem;
+    border-left: 1px solid var(--border);
+    padding-left: 4rem;
+    min-width: 280px;
+  }
+
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .hero-stat-val {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 600;
+    line-height: 1.1;
+  }
+
+  /* ─── Journey ─────────────────────────────────────── */
+  .journey-section {
+    padding: 6rem 0;
+  }
+
+  .journey-intro {
+    margin-bottom: 4rem;
+    max-width: 55ch;
+  }
+
+  .journey-lead {
+    font-size: 1.1rem;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-left: 1px solid var(--border);
+    padding-left: 2rem;
+    margin-left: 1rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 0 0 3rem 0;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.45rem;
+    top: 0.3rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+  }
+
+  .timeline-item--signal::before   { background: var(--ink-muted); }
+  .timeline-item--kill::before     { background: var(--accent); }
+  .timeline-item--pivot::before    { background: var(--ink); width: 12px; height: 12px; left: -2.55rem; top: 0.15rem; }
+  .timeline-item--build::before    { background: var(--ink); }
+  .timeline-item--current::before  { background: var(--accent); animation: pulse 2s infinite; }
+
+  .timeline-marker {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .timeline-type {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+  }
+
+  .ttype--signal { background: rgba(13,13,13,0.07);  color: var(--ink-muted); }
+  .ttype--kill   { background: rgba(255,59,0,0.08);  color: var(--accent); }
+  .ttype--pivot  { background: var(--ink);            color: var(--bg); }
+  .ttype--build  { background: rgba(13,13,13,0.12);  color: var(--ink); display: flex; align-items: center; gap: 0.4rem; }
+
+  .dot-pulse {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.3; }
+  }
+
+  .timeline-content h3 {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-content p {
+    font-size: 0.95rem;
+    color: var(--ink-muted);
+    max-width: 60ch;
+    margin-bottom: 0;
+  }
+
+  .btn-sm {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 1px;
+    margin-top: 1rem;
+    transition: color 0.15s, border-color 0.15s;
+  }
+
+  .btn-sm:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ─── CTA ─────────────────────────────────────────── */
+  .project-cta-section {
+    background: var(--ink);
+    padding: 5rem 0;
+    margin-top: 0;
+  }
+
+  .project-cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+
+  .project-cta-inner h2 {
+    color: var(--bg);
+    margin-bottom: 0.5rem;
+  }
+
+  .project-cta-inner p {
+    color: rgba(249,247,244,0.6);
+    margin: 0;
+    font-size: 0.95rem;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    background: var(--bg);
+    color: var(--ink);
+    padding: 0.75rem 1.5rem;
+    white-space: nowrap;
+    transition: background 0.15s;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  /* ─── Responsive ──────────────────────────────────── */
+  @media (max-width: 768px) {
+    .project-hero {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .project-hero-stats {
+      border-left: none;
+      border-top: 1px solid var(--border);
+      padding-left: 0;
+      padding-top: 2rem;
+      min-width: unset;
+    }
+
+    .project-cta-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

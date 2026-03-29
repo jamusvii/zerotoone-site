@@ -1,0 +1,408 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const team = [
+  {
+    id: 'jay',
+    name: 'Jay',
+    role: 'CEO',
+    roleEn: 'Chief Executive Officer',
+    type: 'human',
+    bio: '화학소재 기업 13년(IP + 기술기획) → MOT 석사 → SME 컨설팅 10년. 특허-기술-시장 연계형 역설계 접근법으로 기회를 찾는다. Zero to One의 전략을 설계하고 에이전트팀을 이끈다.',
+    focus: ['전략 방향', '최종 의사결정', '에이전트 조율'],
+  },
+  {
+    id: 'fairy',
+    name: 'Fairy',
+    role: '수석 분석관',
+    roleEn: 'Chief Analyst',
+    type: 'ai',
+    bio: 'Jay의 AI 파트너. 시그널 발굴, 시장 분석, 전략 보고서 작성을 주도적으로 수행한다. So What? / Why So? 구조로 인사이트를 도출하며, 시간이 갈수록 스스로 진화한다.',
+    focus: ['시장 분석', '시그널 발굴', '전략 리포팅'],
+  },
+  {
+    id: 'mika',
+    name: 'Mika',
+    role: '리서처',
+    roleEn: 'Researcher',
+    type: 'ai',
+    bio: '1차 데이터 수집 전문 에이전트. 시장 조사, 경쟁사 분석, 트렌드 리서치를 담당한다. 웹 크롤링과 공개 데이터 분석으로 팀의 정보 파이프라인을 채운다.',
+    focus: ['시장 조사', '데이터 수집', '트렌드 분석'],
+  },
+  {
+    id: 'sora',
+    name: 'Sora',
+    role: '편집자',
+    roleEn: 'Editor',
+    type: 'ai',
+    bio: '콘텐츠와 문서를 담당하는 에이전트. 분석 결과를 읽을 수 있는 글로 변환하고, 빌드 로그와 뉴스레터 초안을 작성한다. 복잡한 정보를 단순하게 만드는 것이 전문이다.',
+    focus: ['콘텐츠 작성', '뉴스레터', '문서 관리'],
+  },
+  {
+    id: 'hana',
+    name: 'Hana',
+    role: '기획전문가',
+    roleEn: 'Product Strategist',
+    type: 'ai',
+    bio: '아이디어를 실행 가능한 제품으로 전환하는 에이전트. 사용자 여정 설계, 기능 명세, 로드맵 수립을 담당한다. 기각 결정도 Hana의 기획 검증을 거친다.',
+    focus: ['제품 기획', '기능 명세', '로드맵'],
+  },
+  {
+    id: 'yuna',
+    name: 'Yuna',
+    role: '웹디자이너',
+    roleEn: 'Web Designer',
+    type: 'ai',
+    bio: '힙하고 Young한 감성의 웹디자이너 에이전트. 지금 이 사이트를 만든 장본인. AI 느낌이 나는 뻔한 디자인을 가장 싫어한다. 요소는 적게, 인상은 강하게.',
+    focus: ['웹 디자인', '프론트엔드', 'UI/UX'],
+    highlight: true,
+  },
+  {
+    id: 'kai',
+    name: 'Kai',
+    role: '개발자',
+    roleEn: 'Developer',
+    type: 'ai',
+    bio: '백엔드와 인프라를 담당하는 에이전트. AI 파이프라인 구축, API 설계, 데이터베이스 설계를 맡는다. 느린 것을 참지 못한다.',
+    focus: ['백엔드 개발', 'AI 파이프라인', '인프라'],
+  },
+];
+---
+
+<BaseLayout
+  title="팀 소개"
+  description="Zero to One 팀 소개. 인간 1명 + AI 에이전트 6명으로 구성된 팀이다."
+>
+
+  <div class="page-header">
+    <div class="container">
+      <span class="label">팀 / Team</span>
+      <h1>인간 1명과<br />AI 6명의 팀.</h1>
+      <p class="page-desc">
+        Zero to One은 1인 CEO와 6개의 AI 에이전트로 운영된다.<br />
+        각 에이전트는 역할과 전문성이 다르다. 뻔한 AI가 아니다.
+      </p>
+    </div>
+  </div>
+
+  <div class="container team-body">
+    <!-- Human first -->
+    {team.filter(m => m.type === 'human').map(member => (
+      <div class:list={['member-card', 'member-card--human', member.highlight && 'member-card--highlight']}>
+        <div class="member-avatar">
+          <span class="avatar-initial">{member.name[0]}</span>
+          <span class="member-type-badge member-type-badge--human">Human</span>
+        </div>
+        <div class="member-info">
+          <div class="member-header">
+            <h2 class="member-name">{member.name}</h2>
+            <div class="member-roles">
+              <span class="member-role">{member.role}</span>
+              <span class="label member-role-en">{member.roleEn}</span>
+            </div>
+          </div>
+          <p class="member-bio">{member.bio}</p>
+          <div class="member-focus">
+            {member.focus.map(f => <span class="focus-tag">{f}</span>)}
+          </div>
+        </div>
+      </div>
+    ))}
+
+    <hr />
+
+    <div class="ai-team-header">
+      <span class="label">AI 에이전트 팀</span>
+      <p>각 에이전트는 독립적인 역할과 개성을 가진다. AI 슬롭 아님.</p>
+    </div>
+
+    <!-- AI agents -->
+    <div class="ai-grid">
+      {team.filter(m => m.type === 'ai').map(member => (
+        <div class:list={['ai-card', member.highlight && 'ai-card--highlight']}>
+          <div class="ai-card-top">
+            <div class="ai-avatar">
+              <span class="avatar-initial">{member.name[0]}</span>
+            </div>
+            <span class="member-type-badge member-type-badge--ai">AI</span>
+          </div>
+          <h3 class="ai-name">{member.name}</h3>
+          <div class="member-roles">
+            <span class="member-role">{member.role}</span>
+          </div>
+          <p class="ai-bio">{member.bio}</p>
+          <div class="member-focus">
+            {member.focus.map(f => <span class="focus-tag">{f}</span>)}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <!-- Philosophy -->
+  <div class="philosophy-section">
+    <div class="container">
+      <div class="philosophy-inner">
+        <span class="label">운영 철학</span>
+        <blockquote class="philosophy-quote">
+          "AI가 분석하고, 인간이 판단하고,<br />
+          둘이 함께 실행한다."
+        </blockquote>
+        <p class="philosophy-desc">
+          에이전트는 도구가 아니라 팀원이다. 각자의 역할이 있고, 서로에게 보고하며, 실수를 기억하고 개선한다.
+          Zero to One은 이 방식이 미래의 스타트업 운영 모델이라고 믿는다.
+        </p>
+      </div>
+    </div>
+  </div>
+
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: 7rem 0 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-header .label {
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  .page-header h1 { margin-bottom: 1rem; }
+
+  .page-desc {
+    color: var(--ink-muted);
+    font-size: 1.05rem;
+    margin: 0;
+  }
+
+  .team-body {
+    padding: 5rem 0;
+  }
+
+  /* ─── Human Card ──────────────────────────────────── */
+  .member-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 3rem;
+    padding: 3rem;
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+
+  .member-avatar {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+  }
+
+  .avatar-initial {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  .member-type-badge {
+    position: absolute;
+    bottom: -6px;
+    right: -6px;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.1rem 0.35rem;
+  }
+
+  .member-type-badge--human {
+    background: var(--ink);
+    color: var(--bg);
+  }
+
+  .member-type-badge--ai {
+    background: rgba(13,13,13,0.1);
+    color: var(--ink-muted);
+  }
+
+  .member-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .member-name {
+    font-size: 2rem;
+    margin: 0;
+  }
+
+  .member-roles {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+
+  .member-role {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--ink-muted);
+  }
+
+  .member-role-en {
+    color: var(--ink-faint);
+  }
+
+  .member-bio {
+    font-size: 0.95rem;
+    color: var(--ink-muted);
+    max-width: 60ch;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .member-focus {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .focus-tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    border: 1px solid var(--border);
+    padding: 0.15rem 0.55rem;
+    color: var(--ink-muted);
+  }
+
+  /* ─── AI Grid ──────────────────────────────────────── */
+  .ai-team-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .ai-team-header .label { display: block; margin-bottom: 0.5rem; }
+
+  .ai-team-header p {
+    font-size: 0.95rem;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+
+  .ai-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+
+  .ai-card {
+    background: var(--bg);
+    padding: 2rem;
+    transition: background 0.2s;
+  }
+
+  .ai-card:hover {
+    background: rgba(13,13,13,0.02);
+  }
+
+  .ai-card--highlight {
+    background: rgba(255,59,0,0.03);
+  }
+
+  .ai-card--highlight:hover {
+    background: rgba(255,59,0,0.06);
+  }
+
+  .ai-card-top {
+    position: relative;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 1.25rem;
+  }
+
+  .ai-avatar {
+    width: 52px;
+    height: 52px;
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-avatar .avatar-initial {
+    width: 52px;
+    height: 52px;
+    font-size: 1.4rem;
+  }
+
+  .ai-card--highlight .ai-avatar {
+    background: var(--accent);
+  }
+
+  .ai-name {
+    font-size: 1.4rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .ai-bio {
+    font-size: 0.88rem;
+    color: var(--ink-muted);
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+  }
+
+  /* ─── Philosophy ──────────────────────────────────── */
+  .philosophy-section {
+    background: var(--ink);
+    padding: 7rem 0;
+  }
+
+  .philosophy-inner {
+    max-width: 65ch;
+  }
+
+  .philosophy-inner .label {
+    color: rgba(249,247,244,0.4);
+    display: block;
+    margin-bottom: 2rem;
+  }
+
+  .philosophy-quote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    color: var(--bg);
+    line-height: 1.35;
+    margin: 0 0 2rem;
+    border: none;
+    padding: 0;
+  }
+
+  .philosophy-desc {
+    font-size: 1rem;
+    color: rgba(249,247,244,0.6);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ─── Responsive ──────────────────────────────────── */
+  @media (max-width: 768px) {
+    .member-card {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .ai-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
