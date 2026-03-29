@@ -1,0 +1,117 @@
+---
+const pathname = Astro.url.pathname;
+
+const links = [
+  { href: '/projects', label: '프로젝트' },
+  { href: '/log',      label: '빌드 로그' },
+  { href: '/about',    label: '팀' },
+];
+---
+
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="/" class="nav-logo">
+      <span class="nav-logo-z">Z</span><span class="nav-logo-to">→1</span>
+    </a>
+
+    <nav class="nav-links">
+      {links.map(({ href, label }) => (
+        <a
+          href={href}
+          class:list={['nav-link', { active: pathname.startsWith(href) }]}
+        >
+          {label}
+        </a>
+      ))}
+    </nav>
+
+    <a href="/#newsletter" class="nav-cta">
+      구독
+    </a>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(249, 247, 244, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    height: 3.5rem;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: baseline;
+    gap: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    text-decoration: none;
+    margin-right: auto;
+  }
+
+  .nav-logo:hover { color: var(--ink); }
+
+  .nav-logo-z {
+    color: var(--accent);
+  }
+
+  .nav-logo-to {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    color: var(--ink-muted);
+    margin-left: 2px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.75rem;
+  }
+
+  .nav-link {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    color: var(--ink-muted);
+    transition: color 0.15s;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--ink);
+  }
+
+  .nav-cta {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    color: var(--bg);
+    background: var(--ink);
+    padding: 0.35rem 0.9rem;
+    transition: background 0.15s;
+  }
+
+  .nav-cta:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  @media (max-width: 640px) {
+    .nav-links {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,100 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-left">
+      <span class="label">Zero to One</span>
+      <p class="footer-tagline">
+        솔로프리너와 소상공인을 위한 AI 의사결정 파트너.<br />
+        만드는 과정을 공개한다.
+      </p>
+    </div>
+
+    <nav class="footer-nav">
+      <div class="footer-nav-col">
+        <span class="label">탐색</span>
+        <a href="/projects">프로젝트</a>
+        <a href="/log">빌드 로그</a>
+        <a href="/about">팀</a>
+      </div>
+      <div class="footer-nav-col">
+        <span class="label">연결</span>
+        <a href="/#newsletter">뉴스레터</a>
+        <a href="https://github.com/jamusvii/zerotoone-site" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </nav>
+  </div>
+
+  <div class="container footer-bottom">
+    <span class="label">© {year} Zero to One</span>
+    <span class="label">Build in Public — 수익도 실패도 공개한다</span>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--border);
+    margin-top: 8rem;
+    padding: 4rem 0 2rem;
+  }
+
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    margin-bottom: 3rem;
+  }
+
+  .footer-tagline {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+
+  .footer-nav {
+    display: flex;
+    gap: 3rem;
+  }
+
+  .footer-nav-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .footer-nav-col .label {
+    margin-bottom: 0.25rem;
+  }
+
+  .footer-nav-col a {
+    font-size: 0.88rem;
+    color: var(--ink-muted);
+    transition: color 0.15s;
+  }
+
+  .footer-nav-col a:hover {
+    color: var(--ink);
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 640px) {
+    .footer-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+</style>
