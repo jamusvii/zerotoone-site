@@ -5,10 +5,10 @@
 :root {
   --bg:        #F9F7F4;
   --ink:       #0D0D0D;
-  --ink-muted: #6B6B6B;
-  --ink-faint: #B0ADA8;
+  --ink-muted: #3D3D3D;
+  --ink-faint: #8A8784;
   --accent:    #FF3B00;
-  --border:    #E0DDD8;
+  --border:    #D8D5D0;
 
   --font-display: 'Playfair Display', 'Noto Serif KR', Georgia, serif;
   --font-body:    'Source Serif 4', 'Noto Serif KR', Georgia, serif;
@@ -31,7 +31,7 @@ body {
   background-color: var(--bg);
   color: var(--ink);
   font-family: var(--font-body);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.75;
   margin: 0;
   padding: 0;

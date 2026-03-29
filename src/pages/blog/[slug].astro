@@ -1,0 +1,315 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map(post => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const typeLabel: Record<string, string> = {
+  signal: '시그널',
+  kill:   '기각',
+  pivot:  '전환점',
+  build:  '빌드',
+  insight:'인사이트',
+};
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+>
+
+  <article class="post-wrap">
+
+    <header class="post-header">
+      <div class="container">
+        <a href="/blog" class="back-link">← 블로그</a>
+
+        <div class="post-meta">
+          <span class="label">{post.data.date}</span>
+          <span class:list={['post-type', `post-type--${post.data.type}`]}>
+            {typeLabel[post.data.type]}
+          </span>
+        </div>
+
+        <h1 class="post-title">{post.data.title}</h1>
+        <p class="post-desc">{post.data.description}</p>
+
+        <div class="post-byline">
+          <div class="author-avatar">
+            <span>{post.data.author[0]}</span>
+          </div>
+          <div class="author-info">
+            <span class="author-name">{post.data.author}</span>
+            <span class="label author-label">Zero to One 팀</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="container post-layout">
+      <div class="post-content prose">
+        <Content />
+      </div>
+
+      <aside class="post-sidebar">
+        <div class="sidebar-section">
+          <span class="label">태그</span>
+          <div class="tag-list">
+            {post.data.tags.map(tag => (
+              <span class="tag">#{tag}</span>
+            ))}
+          </div>
+        </div>
+        <div class="sidebar-section">
+          <span class="label">작성자</span>
+          <p class="sidebar-author">{post.data.author}</p>
+        </div>
+        <a href="/blog" class="sidebar-back">← 모든 포스트</a>
+      </aside>
+    </div>
+
+  </article>
+
+</BaseLayout>
+
+<style>
+  .post-wrap {
+    padding-bottom: 8rem;
+  }
+
+  /* ─── Header ──────────────────────────────────────────── */
+  .post-header {
+    padding: 5rem 0 4rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 5rem;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    color: var(--ink-muted);
+    margin-bottom: 2.5rem;
+    transition: color 0.15s;
+  }
+
+  .back-link:hover { color: var(--ink); }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .post-type {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+  }
+
+  .post-type--signal  { background: rgba(13,13,13,0.07); color: var(--ink-muted); }
+  .post-type--kill    { background: rgba(255,59,0,0.08); color: var(--accent); }
+  .post-type--pivot   { background: rgba(13,13,13,0.12); color: var(--ink); }
+  .post-type--build   { background: rgba(13,13,13,0.05); color: var(--ink-muted); }
+  .post-type--insight { background: rgba(13,13,13,0.07); color: var(--ink-muted); }
+
+  .post-title {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.25rem;
+    max-width: 22ch;
+  }
+
+  .post-desc {
+    font-size: 1.1rem;
+    color: var(--ink-muted);
+    max-width: 55ch;
+    line-height: 1.65;
+    margin-bottom: 2.5rem;
+  }
+
+  .post-byline {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .author-avatar {
+    width: 40px;
+    height: 40px;
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .author-avatar span {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--bg);
+  }
+
+  .author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .author-name {
+    font-size: 0.92rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+  }
+
+  .author-label {
+    color: var(--ink-faint);
+  }
+
+  /* ─── Layout ──────────────────────────────────────────── */
+  .post-layout {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  /* ─── Content ─────────────────────────────────────────── */
+  .post-content {
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .post-content :global(h2) {
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    margin: 3rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .post-content :global(h3) {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    margin: 2rem 0 0.75rem;
+  }
+
+  .post-content :global(p) {
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+  }
+
+  .post-content :global(blockquote) {
+    border-left: 3px solid var(--accent);
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    background: rgba(255,59,0,0.04);
+  }
+
+  .post-content :global(blockquote p) {
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  .post-content :global(ul),
+  .post-content :global(ol) {
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .post-content :global(li) {
+    margin-bottom: 0.4rem;
+    color: var(--ink);
+  }
+
+  .post-content :global(strong) {
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .post-content :global(hr) {
+    margin: 3rem 0;
+  }
+
+  .post-content :global(code) {
+    background: rgba(13,13,13,0.06);
+    padding: 0.1em 0.35em;
+    font-size: 0.85em;
+  }
+
+  /* ─── Sidebar ─────────────────────────────────────────── */
+  .post-sidebar {
+    position: sticky;
+    top: 5rem;
+    padding-top: 0.5rem;
+  }
+
+  .sidebar-section {
+    margin-bottom: 2rem;
+  }
+
+  .sidebar-section .label {
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+  }
+
+  .sidebar-author {
+    font-size: 0.92rem;
+    color: var(--ink-muted);
+    margin: 0;
+  }
+
+  .sidebar-back {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    color: var(--ink-faint);
+    transition: color 0.15s;
+    margin-top: 1rem;
+  }
+
+  .sidebar-back:hover { color: var(--ink); }
+
+  /* ─── Responsive ──────────────────────────────────────── */
+  @media (max-width: 860px) {
+    .post-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .post-sidebar {
+      position: static;
+      border-top: 1px solid var(--border);
+      padding-top: 2.5rem;
+      margin-top: 1rem;
+    }
+  }
+</style>

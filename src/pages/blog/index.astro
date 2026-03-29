@@ -1,0 +1,174 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const typeLabel: Record<string, string> = {
+  signal: '시그널',
+  kill:   '기각',
+  pivot:  '전환점',
+  build:  '빌드',
+  insight:'인사이트',
+};
+---
+
+<BaseLayout
+  title="블로그"
+  description="Zero to One 빌딩 과정 기록. 시그널 발굴, 기각된 아이디어, 의사결정 과정을 공개한다."
+>
+
+  <div class="page-header">
+    <div class="container">
+      <span class="label">블로그 / Blog</span>
+      <h1>과정을 기록한다.</h1>
+      <p class="page-desc">
+        성공 이야기가 아니다. 기각한 아이디어, 내부 토의, 이견과 수렴 —<br />
+        Zero to One이 만드는 과정 그대로.
+      </p>
+    </div>
+  </div>
+
+  <div class="container blog-body">
+
+    {posts.length === 0 ? (
+      <div class="empty-state">
+        <span class="label">게시글 없음</span>
+        <p>아직 작성된 포스트가 없습니다. Sora가 준비 중입니다.</p>
+      </div>
+    ) : (
+      <div class="posts-list">
+        {posts.map(post => (
+          <a href={`/blog/${post.id}`} class="post-item">
+            <div class="post-meta">
+              <span class="label">{post.data.date}</span>
+              <span class:list={['post-type', `post-type--${post.data.type}`]}>
+                {typeLabel[post.data.type]}
+              </span>
+              <span class="post-author">by {post.data.author}</span>
+            </div>
+            <h2 class="post-title">{post.data.title}</h2>
+            <p class="post-desc">{post.data.description}</p>
+            <div class="post-tags">
+              {post.data.tags.map(tag => (
+                <span class="tag">#{tag}</span>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+    )}
+
+  </div>
+
+</BaseLayout>
+
+<style>
+  .page-header {
+    padding: 7rem 0 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-header .label {
+    display: block;
+    margin-bottom: 1.5rem;
+  }
+
+  .page-header h1 { margin-bottom: 1rem; }
+
+  .page-desc {
+    color: var(--ink-muted);
+    font-size: 1.05rem;
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  .blog-body {
+    padding: 5rem 0;
+  }
+
+  .empty-state {
+    padding: 4rem 0;
+  }
+
+  .empty-state .label { display: block; margin-bottom: 0.75rem; }
+  .empty-state p { color: var(--ink-muted); }
+
+  /* ─── Posts List ──────────────────────────────────────── */
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--border);
+  }
+
+  .post-item {
+    display: block;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    transition: none;
+  }
+
+  .post-item:hover .post-title {
+    color: var(--accent);
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .post-author {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+  }
+
+  .post-type {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+  }
+
+  .post-type--signal  { background: rgba(13,13,13,0.07); color: var(--ink-muted); }
+  .post-type--kill    { background: rgba(255,59,0,0.08); color: var(--accent); }
+  .post-type--pivot   { background: rgba(13,13,13,0.12); color: var(--ink); }
+  .post-type--build   { background: rgba(13,13,13,0.05); color: var(--ink-muted); }
+  .post-type--insight { background: rgba(13,13,13,0.07); color: var(--ink-muted); }
+
+  .post-title {
+    font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+    margin-bottom: 0.6rem;
+    transition: color 0.15s;
+    line-height: 1.25;
+  }
+
+  .post-desc {
+    font-size: 0.95rem;
+    color: var(--ink-muted);
+    max-width: 65ch;
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+
+  .post-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+  }
+</style>
